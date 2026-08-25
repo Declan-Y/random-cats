@@ -12,7 +12,7 @@ describe('App', () => {
 
   it('renders the cat photo pointing at the API proxy', () => {
     render(<App />)
-    const img = screen.getByRole('img', { name: /a random cat/i })
+    const img = screen.getByRole('img', { name: /a random picture of a cat/i })
     expect(img).toHaveAttribute('src', '/api/photo')
   })
 })
