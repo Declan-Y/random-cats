@@ -1,0 +1,25 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server:/app
+      - server-venv:/app/.venv
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: !override
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - web-node-modules:/app/node_modules
+    environment:
+      - VITE_API_PROXY_TARGET=http://server:8000
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  server-venv:
+  web-node-modules:

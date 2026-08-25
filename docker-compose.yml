@@ -1,0 +1,15 @@
+services:
+  server:
+    build: ./server
+    env_file:
+      - path: ./server/.env
+        required: false
+    ports:
+      - "8000:8000"
+
+  web:
+    build: .
+    ports:
+      - "8081:80"
+    depends_on:
+      - server

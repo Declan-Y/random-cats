@@ -3,5 +3,9 @@ name = "server"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "boto3>=1.43.79",
     "fastapi[standard]>=0.141.1",
 ]
+
+[tool.uv]
+package = false
