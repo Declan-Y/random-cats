@@ -8,10 +8,16 @@ ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     PYTHONUNBUFFERED=1
 
+RUN groupadd --system app && useradd --system --gid app --home /app app
+
 COPY pyproject.toml uv.lock ./
 RUN uv sync --locked
 
 COPY . .
+
+RUN chown -R app:app /app
+
+USER app
 
 EXPOSE 8000
 

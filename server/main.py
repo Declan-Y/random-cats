@@ -2,12 +2,15 @@ import mimetypes
 import os
 import random
 from functools import lru_cache
+from dotenv import load_dotenv
 
 import boto3
 from botocore.exceptions import ClientError
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
+
+load_dotenv()
 
 app = FastAPI(title="random-cats")
 
@@ -24,7 +27,7 @@ S3_PREFIX = os.environ.get("S3_PREFIX", "")
 
 @lru_cache
 def get_s3_client():
-    return boto3.client("s3")
+    return boto3.Session().client("s3")
 
 
 @app.get("/health")
@@ -37,7 +40,7 @@ def random_photo():
     s3 = get_s3_client()
 
     try:
-        response = s3.list_objects_v2(Bucket=S3_BUCKET_NAME, Prefix=S3_PREFIX)
+        response = s3.list_objects_v2(Bucket=S3_BUCKET_NAME)
     except ClientError as e:
         raise HTTPException(status_code=502, detail="Could not list photos from S3") from e
 
