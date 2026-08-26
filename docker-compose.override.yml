@@ -6,6 +6,9 @@ services:
     volumes:
       - ./server:/app
       - server-venv:/app/.venv
+      - ${USERPROFILE}/.aws:/app/.aws
+    environment:
+      - PYTHONUNBUFFERED=1
 
   web:
     build:
