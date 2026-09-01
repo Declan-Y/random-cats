@@ -11,11 +11,11 @@ It is a dockerised React/Typescript and Python application using FastAPI as the 
 5. Load balancer.
 6. IAM for permission policies and roles
 
+The listed infrastructure is provisioned using Terraform
 
-There is a Github action set up that runs some tests on merge to main. 
+There is a Github action set up that runs some tests on pull request to main. 
 
 ## TODO
-Automate the creation of the AWS infrastructure using Terraform
 
 Add pushing docker images to ECR to Github Actions
 
