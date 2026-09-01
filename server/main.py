@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 import boto3
 from botocore.exceptions import ClientError
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
@@ -30,12 +30,15 @@ def get_s3_client():
     return boto3.Session().client("s3")
 
 
-@app.get("/health")
+router = APIRouter(prefix="/api")
+
+
+@router.get("/health")
 def health():
     return {"status": "ok"}
 
 
-@app.get("/photo")
+@router.get("/photo")
 def random_photo():
     s3 = get_s3_client()
 
@@ -61,3 +64,6 @@ def random_photo():
         media_type=content_type,
         headers={"Cache-Control": "no-store"},
     )
+
+
+app.include_router(router)

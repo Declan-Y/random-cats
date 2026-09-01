@@ -19,6 +19,9 @@ __pycache__
 .venv
 .pytest_cache
 
+# Personal deployment notes
+ECS_DEPLOYMENT.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
